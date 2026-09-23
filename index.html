@@ -91,19 +91,49 @@
       color: #9ca3af;
       font-size: 13px;
       line-height: 1.8;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .question {
       background: rgba(30, 41, 59, 0.7);
       border: 1px solid rgba(212, 175, 55, 0.25);
       border-radius: 18px;
-      padding: 20px 16px;
-      margin-bottom: 20px;
+      padding: 18px 16px;
+      margin-bottom: 18px;
       font-size: 16px;
       font-weight: 700;
       line-height: 1.8;
       color: #f8fafc;
+    }
+
+    /* العداد في الأعلى (الرقم في المنتصف وتحته كلمة تفويض) */
+    .counter-box {
+      margin-bottom: 18px;
+      background: rgba(6, 78, 59, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .counter-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: #34d399;
+      direction: ltr;
+      margin-bottom: 2px;
+    }
+
+    .counter-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #6ee7b7;
+      letter-spacing: 0.5px;
+    }
+
+    /* منطقة زر التفويض / المشاركة (أصبحت تحت العداد) */
+    #action-area {
+      margin-bottom: 12px;
     }
 
     .vote-btn {
@@ -138,56 +168,7 @@
       color: #10b981;
     }
 
-    .message {
-      min-height: 26px;
-      margin-top: 14px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #34d399;
-    }
-
-    .counter-box {
-      margin-top: 20px;
-      background: rgba(6, 78, 59, 0.25);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 18px;
-      padding: 18px;
-    }
-
-    .counter-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #6ee7b7;
-      margin-bottom: 6px;
-    }
-
-    .counter-value {
-      font-size: 26px;
-      font-weight: 800;
-      color: #34d399;
-      direction: ltr;
-    }
-
-    /* قسم المشاركة تحت العداد */
-    .share-container {
-      display: none;
-      margin-top: 20px;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .share-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #e5e7eb;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
+    /* زر المشاركة عبر واتساب ليحل محل زر التفويض بعد الاعتماد */
     .whatsapp-btn {
       display: flex;
       align-items: center;
@@ -195,13 +176,14 @@
       gap: 10px;
       background: #25D366;
       color: #ffffff;
-      padding: 15px 20px;
+      padding: 16px 20px;
       border-radius: 16px;
       text-decoration: none;
       font-weight: 800;
       font-size: 16px;
       box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
       transition: all 0.3s ease;
+      animation: fadeIn 0.5s ease;
     }
 
     .whatsapp-btn:hover {
@@ -214,8 +196,20 @@
       font-size: 22px;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .message {
+      min-height: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+    }
+
     .footer {
-      margin-top: 20px;
+      margin-top: 18px;
       color: #6b7280;
       font-size: 11px;
     }
@@ -261,28 +255,22 @@
         رئيساً شرعياً للبلاد.
       </div>
 
-      <!-- زر التصويت -->
-      <button id="voteBtn" class="vote-btn" onclick="submitDelegation()">
-        نعم أفوضه رئيساً شرعياً
-      </button>
+      <!-- العداد أصبح في الأعلى (الرقم في النص وتحته كلمة تفويض) -->
+      <div class="counter-box">
+        <div id="totalCount" class="counter-value">
+          <i class="fa-solid fa-spinner fa-spin" style="color: #6ee7b7; font-size: 24px;"></i>
+        </div>
+        <div class="counter-label">تفويض</div>
+      </div>
+
+      <!-- زر التفويض أصبح تحت العداد مباشرة -->
+      <div id="action-area">
+        <button id="voteBtn" class="vote-btn" onclick="submitDelegation()">
+          نعم أفوضه رئيساً شرعياً
+        </button>
+      </div>
 
       <div id="message" class="message"></div>
-
-      <!-- العداد -->
-      <div class="counter-box">
-        <div class="counter-title">إجمالي عدد المواطنين المفوضين</div>
-        <div id="totalCount" class="counter-value">
-          <i class="fa-solid fa-spinner fa-spin" style="color: #6ee7b7; font-size: 22px;"></i>
-        </div>
-      </div>
-
-      <!-- مكان المشاركة (يظهر تحت العداد بعد إتمام التفويض) -->
-      <div id="shareContainer" class="share-container">
-        <div class="share-title">ساهم في نشر المبادرة ليصل الصوت لأكبر عدد:</div>
-        <a id="whatsappShareBtn" href="#" target="_blank" class="whatsapp-btn">
-          <i class="fa-brands fa-whatsapp"></i> مشاركة عبر واتساب
-        </a>
-      </div>
 
       <div class="footer">
         نظام التفويض الإلكتروني الموحد
@@ -311,11 +299,9 @@
     
     const delegationRef = ref(db, "polls/burhan_single_delegation/total_count");
 
-    const voteBtn = document.getElementById("voteBtn");
+    const actionArea = document.getElementById("action-area");
     const totalCountElem = document.getElementById("totalCount");
     const message = document.getElementById("message");
-    const shareContainer = document.getElementById("shareContainer");
-    const whatsappShareBtn = document.getElementById("whatsappShareBtn");
 
     const getWhatsAppLink = () => {
       const shareText = "عاش السودان حراً أبياً 🇸🇩\n\nشارك برأيك في منصة التفويض الشعبي لدعم واستقرار البلاد وتفويض السيد الفريق أول ركن عبد الفتاح البرهان رئيساً شرعياً للبلاد عبر الرابط:";
@@ -324,11 +310,12 @@
     };
 
     if (localStorage.getItem("burhan_delegated_voted")) {
-      voteBtn.disabled = true;
-      voteBtn.textContent = "تم اعتماد التفويض ✓";
-      message.textContent = "تم استلام تفويضك الوطني بنجاح.";
-      whatsappShareBtn.href = getWhatsAppLink();
-      shareContainer.style.display = "block";
+      actionArea.innerHTML = `
+        <a href="${getWhatsAppLink()}" target="_blank" class="whatsapp-btn">
+          <i class="fa-brands fa-whatsapp"></i> شارك المبادرة عبر واتساب
+        </a>
+      `;
+      message.textContent = "تم استلام تفويضك الوطني بنجاح. عاش السودان حراً أبياً.";
     }
 
     onValue(delegationRef, (snapshot) => {
@@ -344,7 +331,8 @@
         return;
       }
 
-      voteBtn.disabled = true;
+      const voteBtn = document.getElementById("voteBtn");
+      if (voteBtn) voteBtn.disabled = true;
       message.textContent = "جاري اعتماد التفويض...";
 
       try {
@@ -353,16 +341,18 @@
         });
 
         localStorage.setItem("burhan_delegated_voted", "1");
-        voteBtn.textContent = "تم اعتماد التفويض ✓";
         message.textContent = "تم تسجيل تفويضك بنجاح. عاش السودان حراً أبياً.";
         
-        whatsappShareBtn.href = getWhatsAppLink();
-        shareContainer.style.display = "block";
+        actionArea.innerHTML = `
+          <a href="${getWhatsAppLink()}" target="_blank" class="whatsapp-btn">
+            <i class="fa-brands fa-whatsapp"></i> شارك المبادرة عبر واتساب
+          </a>
+        `;
 
       } catch (error) {
         console.error(error);
         message.textContent = "حدث خطأ في الاتصال، يجدر المحاولة لاحقاً.";
-        voteBtn.disabled = false;
+        if (voteBtn) voteBtn.disabled = false;
       }
     };
   </script>
