@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>التفويض الشعبي - السودان</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(0, 150, 136, .12), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(212, 175, 55, .1), transparent 40%),
+        #0b0f19;
+      color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 28px;
+      padding: 24px 20px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.1);
+      text-align: center;
+    }
+
+    /* شريط علم السودان العلوي */
+    .national-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #e5e7eb;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .national-header span {
+      font-size: 20px;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffffff, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 18px;
+      padding: 20px 16px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.8;
+      color: #f8fafc;
+    }
+
+    .vote-btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: white;
+      box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4);
+    }
+
+    .vote-btn:hover {
+      background: linear-gradient(135deg, #047857, #065f46);
+      transform: translateY(-1px);
+    }
+
+    .vote-btn:active {
+      transform: scale(.98);
+    }
+
+    .vote-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      background: linear-gradient(135deg, #374151, #1f2937);
+      box-shadow: none;
+      color: #10b981;
+    }
+
+    .message {
+      min-height: 26px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    .counter-box {
+      margin-top: 22px;
+      background: rgba(6, 78, 59, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .counter-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #6ee7b7;
+      margin-bottom: 6px;
+    }
+
+    .counter-value {
+      font-size: 30px;
+      font-weight: 800;
+      color: #34d399;
+      direction: ltr;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: #6b7280;
+      font-size: 11px;
+    }
+
+    @media (max-width: 390px) {
+      .card {
+        padding: 18px 14px 20px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      .question {
+        font-size: 14px;
+      }
+      .hero-img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+    <section class="card">
+      
+      <!-- شريط علم السودان -->
+      <div class="national-header">
+        <span>🇸🇩</span> جمهورية السودان - منصة التفويض الشعبي <span>🇸🇩</span>
+      </div>
+
+      <!-- صورة الموقع -->
+      <img src="https://iili.io/nuydlqX.jpg" alt="التفويض الشعبي" class="hero-img">
+
+      <h1>التفويض الشعبي الوطني</h1>
+
+      <p class="subtitle">
+        منصة رسمية لتسجيل التفويض الشعبي لدعم استقرار ووحدة البلاد وحماية سيادتها.
+      </p>
+
+      <div class="question">
+        أفوض السيد القائد العام للقوات المسلحة الفريق أول ركن عبد الفتاح البرهان
+        رئيساً شرعياً للبلاد.
+      </div>
+
+      <button id="voteBtn" class="vote-btn" onclick="submitDelegation()">
+        نعم أفوضه رئيساً شرعياً
+      </button>
+
+      <div id="message" class="message"></div>
+
+      <div class="counter-box">
+        <div class="counter-title">إجمالي عدد المواطنين المفوضين</div>
+        <div id="totalCount" class="counter-value">0</div>
+      </div>
+
+      <div class="footer">
+        نظام التفويض الإلكتروني الموحد
+      </div>
+    </section>
+  </main>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMoCkT_Oq608TyB7zeO3MCe88Wetslq5w",
+      authDomain: "alkahin.firebaseapp.com",
+      databaseURL: "https://alkahin-default-rtdb.firebaseio.com",
+      projectId: "alkahin",
+      storageBucket: "alkahin.firebasestorage.app",
+      messagingSenderId: "392023178967",
+      appId: "1:392023178967:web:5d9b3d6d63f0b5ea027a92",
+      measurementId: "G-88EM5JFMT6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    
+    const delegationRef = ref(db, "polls/burhan_single_delegation/total_count");
+
+    const voteBtn = document.getElementById("voteBtn");
+    const totalCountElem = document.getElementById("totalCount");
+    const message = document.getElementById("message");
+
+    // التحقق بصمت دون إظهار عبارات واضحة للمتصفح
+    if (localStorage.getItem("burhan_delegated_voted")) {
+      voteBtn.disabled = true;
+      voteBtn.textContent = "تم اعتماد التفويض ✓";
+      message.textContent = "تم استلام تفويضك الوطني بنجاح.";
+    }
+
+    onValue(delegationRef, (snapshot) => {
+      const count = Number(snapshot.val() || 0);
+      totalCountElem.textContent = count.toLocaleString("ar");
+    }, (error) => {
+      console.error(error);
+    });
+
+    window.submitDelegation = async function() {
+      if (localStorage.getItem("burhan_delegated_voted")) {
+        return;
+      }
+
+      voteBtn.disabled = true;
+      message.textContent = "جاري اعتماد التفويض...";
+
+      try {
+        await runTransaction(delegationRef, (currentValue) => {
+          return Number(currentValue || 0) + 1;
+        });
+
+        localStorage.setItem("burhan_delegated_voted", "1");
+        voteBtn.textContent = "تم اعتماد التفويض ✓";
+        message.textContent = "تم تسجيل تفويضك بنجاح. عاش السودان حراً أبياً.";
+      } catch (error) {
+        console.error(error);
+        message.textContent = "حدث خطأ في الاتصال، يجدر المحاولة لاحقاً.";
+        voteBtn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>
