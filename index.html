@@ -147,7 +147,7 @@
     }
 
     .counter-box {
-      margin-top: 22px;
+      margin-top: 20px;
       background: rgba(6, 78, 59, 0.25);
       border: 1px solid rgba(16, 185, 129, 0.3);
       border-radius: 18px;
@@ -168,9 +168,10 @@
       direction: ltr;
     }
 
+    /* قسم المشاركة تحت العداد */
     .share-container {
       display: none;
-      margin-top: 22px;
+      margin-top: 20px;
       animation: fadeIn 0.5s ease;
     }
 
@@ -183,7 +184,7 @@
       font-size: 13px;
       font-weight: 700;
       color: #e5e7eb;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.6;
     }
 
@@ -260,25 +261,27 @@
         رئيساً شرعياً للبلاد.
       </div>
 
+      <!-- زر التصويت -->
       <button id="voteBtn" class="vote-btn" onclick="submitDelegation()">
         نعم أفوضه رئيساً شرعياً
       </button>
 
       <div id="message" class="message"></div>
 
-      <!-- زر المشاركة عبر واتساب (يظهر بعد التصويت) -->
-      <div id="shareContainer" class="share-container">
-        <div class="share-title">ساهم في نشر المبادرة ليصل الصوت لأكبر عدد من المواطنين:</div>
-        <a id="whatsappShareBtn" href="#" target="_blank" class="whatsapp-btn">
-          <i class="fa-brands fa-whatsapp"></i> مشاركة عبر واتساب
-        </a>
-      </div>
-
+      <!-- العداد -->
       <div class="counter-box">
         <div class="counter-title">إجمالي عدد المواطنين المفوضين</div>
         <div id="totalCount" class="counter-value">
           <i class="fa-solid fa-spinner fa-spin" style="color: #6ee7b7; font-size: 22px;"></i>
         </div>
+      </div>
+
+      <!-- مكان المشاركة (يظهر تحت العداد بعد إتمام التفويض) -->
+      <div id="shareContainer" class="share-container">
+        <div class="share-title">ساهم في نشر المبادرة ليصل الصوت لأكبر عدد:</div>
+        <a id="whatsappShareBtn" href="#" target="_blank" class="whatsapp-btn">
+          <i class="fa-brands fa-whatsapp"></i> مشاركة عبر واتساب
+        </a>
       </div>
 
       <div class="footer">
@@ -314,18 +317,17 @@
     const shareContainer = document.getElementById("shareContainer");
     const whatsappShareBtn = document.getElementById("whatsappShareBtn");
 
-    // نص المشاركة التلقائي والمطور للواتساب
-    const setupWhatsAppShare = () => {
+    const getWhatsAppLink = () => {
       const shareText = "عاش السودان حراً أبياً 🇸🇩\n\nشارك برأيك في منصة التفويض الشعبي لدعم واستقرار البلاد وتفويض السيد الفريق أول ركن عبد الفتاح البرهان رئيساً شرعياً للبلاد عبر الرابط:";
       const siteUrl = "https://albrhansd.vercel.app/";
-      whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + siteUrl)}`;
+      return `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + siteUrl)}`;
     };
 
     if (localStorage.getItem("burhan_delegated_voted")) {
       voteBtn.disabled = true;
       voteBtn.textContent = "تم اعتماد التفويض ✓";
       message.textContent = "تم استلام تفويضك الوطني بنجاح.";
-      setupWhatsAppShare();
+      whatsappShareBtn.href = getWhatsAppLink();
       shareContainer.style.display = "block";
     }
 
@@ -354,7 +356,7 @@
         voteBtn.textContent = "تم اعتماد التفويض ✓";
         message.textContent = "تم تسجيل تفويضك بنجاح. عاش السودان حراً أبياً.";
         
-        setupWhatsAppShare();
+        whatsappShareBtn.href = getWhatsAppLink();
         shareContainer.style.display = "block";
 
       } catch (error) {
