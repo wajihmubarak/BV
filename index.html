@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons للأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     * {
@@ -47,7 +49,6 @@
       text-align: center;
     }
 
-    /* شريط علم السودان العلوي */
     .national-header {
       display: flex;
       align-items: center;
@@ -161,10 +162,55 @@
     }
 
     .counter-value {
-      font-size: 30px;
+      font-size: 26px;
       font-weight: 800;
       color: #34d399;
       direction: ltr;
+    }
+
+    .share-container {
+      display: none;
+      margin-top: 22px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .share-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: #ffffff;
+      padding: 15px 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20ba5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-btn i {
+      font-size: 22px;
     }
 
     .footer {
@@ -220,9 +266,19 @@
 
       <div id="message" class="message"></div>
 
+      <!-- زر المشاركة عبر واتساب (يظهر بعد التصويت) -->
+      <div id="shareContainer" class="share-container">
+        <div class="share-title">ساهم في نشر المبادرة ليصل الصوت لأكبر عدد من المواطنين:</div>
+        <a id="whatsappShareBtn" href="#" target="_blank" class="whatsapp-btn">
+          <i class="fa-brands fa-whatsapp"></i> مشاركة عبر واتساب
+        </a>
+      </div>
+
       <div class="counter-box">
         <div class="counter-title">إجمالي عدد المواطنين المفوضين</div>
-        <div id="totalCount" class="counter-value">0</div>
+        <div id="totalCount" class="counter-value">
+          <i class="fa-solid fa-spinner fa-spin" style="color: #6ee7b7; font-size: 22px;"></i>
+        </div>
       </div>
 
       <div class="footer">
@@ -255,12 +311,22 @@
     const voteBtn = document.getElementById("voteBtn");
     const totalCountElem = document.getElementById("totalCount");
     const message = document.getElementById("message");
+    const shareContainer = document.getElementById("shareContainer");
+    const whatsappShareBtn = document.getElementById("whatsappShareBtn");
 
-    // التحقق بصمت دون إظهار عبارات واضحة للمتصفح
+    // نص المشاركة التلقائي والمطور للواتساب
+    const setupWhatsAppShare = () => {
+      const shareText = "عاش السودان حراً أبياً 🇸🇩\n\nشارك برأيك في منصة التفويض الشعبي لدعم واستقرار البلاد وتفويض السيد الفريق أول ركن عبد الفتاح البرهان رئيساً شرعياً للبلاد عبر الرابط:";
+      const siteUrl = "https://albrhansd.vercel.app/";
+      whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + siteUrl)}`;
+    };
+
     if (localStorage.getItem("burhan_delegated_voted")) {
       voteBtn.disabled = true;
       voteBtn.textContent = "تم اعتماد التفويض ✓";
       message.textContent = "تم استلام تفويضك الوطني بنجاح.";
+      setupWhatsAppShare();
+      shareContainer.style.display = "block";
     }
 
     onValue(delegationRef, (snapshot) => {
@@ -268,6 +334,7 @@
       totalCountElem.textContent = count.toLocaleString("ar");
     }, (error) => {
       console.error(error);
+      totalCountElem.innerHTML = '<span style="font-size: 14px; color: #ef4444;">تعذر التحميل</span>';
     });
 
     window.submitDelegation = async function() {
@@ -286,6 +353,10 @@
         localStorage.setItem("burhan_delegated_voted", "1");
         voteBtn.textContent = "تم اعتماد التفويض ✓";
         message.textContent = "تم تسجيل تفويضك بنجاح. عاش السودان حراً أبياً.";
+        
+        setupWhatsAppShare();
+        shareContainer.style.display = "block";
+
       } catch (error) {
         console.error(error);
         message.textContent = "حدث خطأ في الاتصال، يجدر المحاولة لاحقاً.";
